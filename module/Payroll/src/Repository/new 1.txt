@@ -1,0 +1,1643 @@
+ update   HRIS_PAY_SETUP set FORMULA  = 'FORMULA'  where PAY_ID= PAY_ID ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:CITY_LEDGER_(MC)]'  where PAY_ID= 65 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [S:MULTIPLICATION_FACTOR]==11) ? 0 : ( [R:BASIC_SLRY_ARREAR] + [S:PREVIOUS_TOTAL] PARS 2 PARE )'  where PAY_ID= 83 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' [R:S/CHARGE]'  where PAY_ID= 85 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [V:EMPLOYEE_SERVICE_ID]==3 || [V:EMPLOYEE_SERVICE_ID]==4 )? 0.00 : ( [R:BASIC] * 0.01 )'  where PAY_ID= 67 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 69 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [V:IS_CONTRACT] || [V:EMPLOYEE_SERVICE_ID] ==4 )? 0.00 : ([R:BASIC_SLRY_ARREAR] * 0.01 )'  where PAY_ID= 68 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( ( [S:MULTIPLICATION_FACTOR] == 11 )  ? ( ( [F:CI_FUND_(FV)] / 31 ) * 15 ) : 0 )
+
++
+
+( ( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >-1  )  ? [F:CI_FUND_(FV)] : 0 )
+
++
+
+( ( [S:MULTIPLICATION_FACTOR] == -1 )  ? ( ( [F:CI_FUND_(FV)] / 31 ) * 16 ) : 0 )'  where PAY_ID= 252 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[S:MULTIPLICATION_FACTOR] == 8 ? 500: 0'  where PAY_ID= 70 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:CI_FUND_TAX] + [S:PREVIOUS_MONTH_AMOUNT] PARS 251 PARE'  where PAY_ID= 251 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 71 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 72 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:UP_-_SELLING_(MC)]'  where PAY_ID= 73 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:SHORTFALL_TAX_(FV)]'  where PAY_ID= 74 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:ADVANCE]'  where PAY_ID= 75 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:MISC_DED._(MC)]'  where PAY_ID= 76 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:G_FLAT_VALUE_FOR_DONATION]'  where PAY_ID= 77 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:SERVICES_CHARGES_0] < 1 ) ? 0 : ( [R:SERVICES_CHARGES_0] + [R:MONTHLY_SERVICE] )'  where PAY_ID= 86 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [F:LEFT_STAFF_(FV)] == 0 ) ? [R:SERVICE_CHARGES1_] : ( [R:S/CHARGE] ) '  where PAY_ID= 87 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:DEAR_ALLOW] * [R:MMM]'  where PAY_ID= 186 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [V:EMPLOYEE_SERVICE_ID] == 4 ) ? 
+0
+:
+
+(
+
+round(
+
+(
+
+
+(
+( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+(
+
+[R:THIS_MONTH_DEAR_ALLOW]
++
+(
+( [R:THIS_MONTH_DEAR_ALLOW] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+  ? ( [R:MONTHLY_DEAR_ALLOW] * [S:MULTIPLICATION_FACTOR] ) 
+  : 0
+)
++
+
+
+(
+([R:THIS_MONTH_DEAR_ALLOW] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+?
+(( [R:MONTHLY_DEAR_ALLOW] / 31)* [R:LAST_JULY] )
+:
+0
+)
+
+
+
+
+
+)
+:
+0
+)
+
+
+
+
++
+(
+( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >=0  ) ?
+(
+[R:UNTIL_DEAR_ALLOW]
++
+( [R:THIS_MONTH_DEAR_ALLOW]  * [S:MULTIPLICATION_FACTOR] ) 
++
+( ( [R:THIS_MONTH_DEAR_ALLOW]  / 31)* [R:LAST_JULY] ) 
+)
+:
+0
+)
+
++
+
+(
+( [S:MULTIPLICATION_FACTOR] == -1  )
+?
+[R:UNTIL_DEAR_ALLOW]
+:
+0
+)
+
+)
+,
+2
+)
+
+
+
+)
+'  where PAY_ID= 88 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [S:MULTIPLICATION_FACTOR] ==11 ) ? 0: ( ( [R:S/CHARGE] + [S:PREVIOUS_MONTH_AMOUNT] PARS 264 PARE )
++ [R:MONTHLY_SERVICE] )'  where PAY_ID= 264 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:HOUSE_ALLOW] * [R:MMM]'  where PAY_ID= 187 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [R:SPEC_ALL] * [R:MMM] )'  where PAY_ID= 188 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:FESTIVAL_BONUS] * [R:MMM]'  where PAY_ID= 191 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:POS_ALLOW] * [R:MMM] '  where PAY_ID= 190 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'round(
+
+(
+
+
+(
+( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+(
+
+[R:THIS_MONTH_HOUSE_ALLOW]
++
+(
+( [R:THIS_MONTH_HOUSE_ALLOW] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+  ? ( [F:G_FLAT_VALUE_FOR_HOUSE_ALLOW.] * [S:MULTIPLICATION_FACTOR] ) 
+  : 0
+)
++
+
+
+(
+([R:THIS_MONTH_HOUSE_ALLOW] > 0 || ( [F:G_FLAT_VALUE_FOR_HOUSE_ALLOW.] >= 1 && [R:MONTH_ABSENT]!=31) )
+?
+(( [F:G_FLAT_VALUE_FOR_HOUSE_ALLOW.] / 31)* [R:LAST_JULY] )
+:
+0
+)
+
+
+
+
+
+)
+:
+0
+)
+
+
+
+
++
+(
+( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >=0  ) ?
+(
+[R:UNTIL_HOUSE_ALLOW]
++
+( [R:THIS_MONTH_HOUSE_ALLOW]  * [S:MULTIPLICATION_FACTOR] ) 
++
+( ( [R:THIS_MONTH_HOUSE_ALLOW]  / 31)* [R:LAST_JULY]) 
+)
+:
+0
+)
+
++
+
+(
+( [S:MULTIPLICATION_FACTOR] == -1  )
+?
+[R:UNTIL_HOUSE_ALLOW]
+:
+0
+)
+
+)
+,
+2
+)
+'  where PAY_ID= 89 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:FOOD_ALL] * [R:MMM]'  where PAY_ID= 192 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:FESTIVAL_BONUS_M] + [S:SELF_PREV_TOTAL] + [R:FESTIVAL_BONUS] '  where PAY_ID= 91 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'round(
+
+(
+
+
+(
+( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+(
+
+[R:THIS_MONTH_POS_ALLOWANCE]
++
+(
+( [R:THIS_MONTH_POS_ALLOWANCE] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+  ? ( [F:POS_ALLOW(FV)]  * [S:MULTIPLICATION_FACTOR] ) 
+  : 0
+)
++
+
+
+(
+(  [R:THIS_MONTH_POS_ALLOWANCE] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+?
+(( [F:POS_ALLOW(FV)]  / 31)* [R:LAST_JULY])
+:
+0
+)
+
+
+
+
+
+)
+:
+0
+)
+
+
+
+
++
+(
+( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >=0  ) ?
+(
+[R:UNTIL_POS_ALLOWANCE]
++
+( [R:THIS_MONTH_POS_ALLOWANCE]  * [S:MULTIPLICATION_FACTOR] ) 
++
+( ( [R:THIS_MONTH_POS_ALLOWANCE]  / 31)* [R:LAST_JULY]) 
+)
+:
+0
+)
+
++
+
+(
+( [S:MULTIPLICATION_FACTOR] == -1  )
+?
+[R:UNTIL_POS_ALLOWANCE]
+:
+0
+)
+
+)
+,
+2
+)
+'  where PAY_ID= 90 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'round(
+
+(
+
+
+(
+( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+(
+
+[R:THIS_MONTH_SPAC_ALLOW]
++
+(
+( [R:THIS_MONTH_SPAC_ALLOW] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+  ? ( [F:SPAC_ALL.(FV)] * [S:MULTIPLICATION_FACTOR] ) 
+  : 0
+)
++
+
+
+(
+( [R:THIS_MONTH_SPAC_ALLOW] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+?
+(( [F:SPAC_ALL.(FV)] / 31)* [R:LAST_JULY])
+:
+0
+)
+
+
+
+
+
+)
+:
+0
+)
+
+
+
+
++
+(
+( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >=0  ) ?
+(
+[R:UNTIL_SPAC_ALLOW]
++
+( [R:THIS_MONTH_SPAC_ALLOW]  * [S:MULTIPLICATION_FACTOR] ) 
++
+( ( [R:THIS_MONTH_SPAC_ALLOW]  / 31)* [R:LAST_JULY]) 
+)
+:
+0
+)
+
++
+
+(
+( [S:MULTIPLICATION_FACTOR] == -1  )
+?
+[R:UNTIL_SPAC_ALLOW]
+:
+0
+)
+
+)
+,
+2
+)
+'  where PAY_ID= 189 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'round(
+
+(
+
+
+(
+( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+(
+
+[R:THIS_MONTH_FOOD_ALLOW]
++
+(
+( [R:THIS_MONTH_FOOD_ALLOW] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+  ? ( [R:FOOD_ALLOWANCE] * [S:MULTIPLICATION_FACTOR] ) 
+  : 0
+)
++
+
+
+(
+( [R:THIS_MONTH_FOOD_ALLOW] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+?
+(( [R:FOOD_ALLOWANCE] / 31)* [R:LAST_JULY])
+:
+0
+)
+
+
+
+
+
+)
+:
+0
+)
+
+
+
+
++
+(
+( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >=0  ) ?
+(
+[R:UNTIL_FOOD_ALLOW]
++
+( [R:THIS_MONTH_FOOD_ALLOW]  * [S:MULTIPLICATION_FACTOR] ) 
++
+( ( [R:THIS_MONTH_FOOD_ALLOW]  / 31)* [R:LAST_JULY]) 
+)
+:
+0
+)
+
++
+
+(
+( [S:MULTIPLICATION_FACTOR] == -1  )
+?
+[R:UNTIL_FOOD_ALLOW]
+:
+0
+)
+
+)
+,
+2
+)
+'  where PAY_ID= 92 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:CLOTH_/_TRANS_ALL.] * [R:MMM]'  where PAY_ID= 193 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'round(
+
+(
+
+
+(
+( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+(
+
+[R:THIS_MONTH_CLOTH/TRANS_ALL]
++
+(
+( [R:THIS_MONTH_CLOTH/TRANS_ALL] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+  ? ( [F:CLOTH_/_TRANS_ALLOW._(FV)] * [S:MULTIPLICATION_FACTOR] ) 
+  : 0
+)
++
+
+
+(
+( [R:THIS_MONTH_CLOTH/TRANS_ALL] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+?
+(( [F:CLOTH_/_TRANS_ALLOW._(FV)] / 31)* [R:LAST_JULY])
+:
+0
+)
+
+
+
+
+
+)
+:
+0
+)
+
+
+
+
++
+(
+( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >=0  ) ?
+(
+[R:UNTIL_CLOTH/TRANS_ALL]
++
+( [R:THIS_MONTH_CLOTH/TRANS_ALL]  * [S:MULTIPLICATION_FACTOR] ) 
++
+( ( [R:THIS_MONTH_CLOTH/TRANS_ALL]  / 31)* [R:LAST_JULY]) 
+)
+:
+0
+)
+
++
+
+(
+( [S:MULTIPLICATION_FACTOR] == -1  )
+?
+[R:UNTIL_CLOTH/TRANS_ALL]
+:
+0
+)
+
+)
+,
+2
+)
+'  where PAY_ID= 93 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:OVERTIME]'  where PAY_ID= 194 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [S:MULTIPLICATION_FACTOR]==11 ) ? 0 : ( [R:OVERTIME]  + [S:PREVIOUS_TOTAL] PARS 24 PARE )'  where PAY_ID= 94 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:LTC]'  where PAY_ID= 195 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [S:MULTIPLICATION_FACTOR]==11 ) ? 0 : ([R:LTC] + [S:PREVIOUS_TOTAL] PARS 25 PARE)'  where PAY_ID= 95 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:UP-SELL_COMMISSION]'  where PAY_ID= 196 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:MOBILE_ALLOW_ERREAR]'  where PAY_ID= 197 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '  ( [S:MULTIPLICATION_FACTOR]==11 ) ? 0 : ( [R:UP-SELL_COMMISSION] + [S:PREVIOUS_TOTAL] PARS 27 PARE )'  where PAY_ID= 96 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '  ( [S:MULTIPLICATION_FACTOR] ==11 ) ? 0 :  ( [R:MOBILE_ALLOW_ERREAR] + [S:PREVIOUS_TOTAL] PARS 28 PARE )'  where PAY_ID= 97 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:MOURNING_EXP]'  where PAY_ID= 198 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:FAMILY_PLAN]'  where PAY_ID= 199 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '   ( [S:MULTIPLICATION_FACTOR]==11)? 0 :  ( [R:MOURNING_EXP] + [S:PREVIOUS_TOTAL] PARS 29 PARE )'  where PAY_ID= 98 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:MISC_DED]'  where PAY_ID= 269 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:NIGHT_ALLOW]'  where PAY_ID= 200 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '  ( [S:MULTIPLICATION_FACTOR]==11 ) ? 0 :  ( [R:FAMILY_PLAN] + [S:PREVIOUS_TOTAL] PARS 30 PARE )'  where PAY_ID= 99 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [S:MULTIPLICATION_FACTOR]==11 )? 0 : ( [R:NIGHT_ALLOW] + [S:PREVIOUS_TOTAL] PARS 17 PARE)'  where PAY_ID= 100 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:MOBILE] * [R:MMM]'  where PAY_ID= 201 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [S:MULTIPLICATION_FACTOR] ==11 )? 0 : ( [R:LSA] + [S:PREVIOUS_TOTAL] PARS 26 PARE )'  where PAY_ID= 202 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'round(
+
+(
+
+
+(
+( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+(
+
+[R:THIS_MONTH_MOBILE]
++
+(
+( [R:THIS_MONTH_MOBILE] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+  ? ( [F:MOBILE_ALLOWANCE_(FV)] * [S:MULTIPLICATION_FACTOR] ) 
+  : 0
+)
++
+
+
+(
+( [R:THIS_MONTH_MOBILE] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+?
+(( [F:MOBILE_ALLOWANCE_(FV)] / 31)* [R:LAST_JULY])
+:
+0
+)
+
+
+
+
+
+)
+:
+0
+)
+
+
+
+
++
+(
+( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >=0  ) ?
+(
+[R:UNTIL_MOBILE]
++
+( [R:THIS_MONTH_MOBILE]  * [S:MULTIPLICATION_FACTOR] ) 
++
+( ( [R:THIS_MONTH_MOBILE]  / 31)* [R:LAST_JULY]) 
+)
+:
+0
+)
+
++
+
+(
+( [S:MULTIPLICATION_FACTOR] == -1  )
+?
+[R:UNTIL_MOBILE]
+:
+0
+)
+
+)
+,
+2
+)
+'  where PAY_ID= 101 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:SICK_ALLOW]'  where PAY_ID= 203 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' [R:LSA]'  where PAY_ID= 102 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:SICK_ALLOW] + [S:PREVIOUS_TOTAL] PARS 36 PARE'  where PAY_ID= 103 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 204 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:MISC-(VRS/_INSURANCE)]'  where PAY_ID= 206 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:ALLOW_ARREAR]'  where PAY_ID= 205 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'round(
+
+(
+
+
+(
+( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+(
+
+[R:THIS_MONTH_EDUCATION_ALLOWANCE]
++
+(
+( [R:THIS_MONTH_EDUCATION_ALLOWANCE] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+  ? ( [F:G_FLAT_VALUE_FOR_EDUC._ALLOW] * [S:MULTIPLICATION_FACTOR] ) 
+  : 0
+)
++
+
+
+(
+( [R:THIS_MONTH_EDUCATION_ALLOWANCE] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+?
+(( [F:G_FLAT_VALUE_FOR_EDUC._ALLOW] / 31)* [R:LAST_JULY])
+:
+0
+)
+
+
+
+
+
+)
+:
+0
+)
+
+
+
+
++
+(
+( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >=0  ) ?
+(
+[R:UNTIL_EDUCATION_ALLOWANCE]
++
+( [R:THIS_MONTH_EDUCATION_ALLOWANCE]  * [S:MULTIPLICATION_FACTOR] ) 
++
+( ( [R:THIS_MONTH_EDUCATION_ALLOWANCE]  / 31)* [R:LAST_JULY]) 
+)
+:
+0
+)
+
++
+
+(
+( [S:MULTIPLICATION_FACTOR] == -1  )
+?
+[R:UNTIL_EDUCATION_ALLOWANCE]
+:
+0
+)
+
+)
+,
+2
+)
+'  where PAY_ID= 104 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:PF_CONT._10%] * [R:MMM]'  where PAY_ID= 207 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:GROSS_UP_TAX_(FV)]'  where PAY_ID= 108 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:MISC-(VRS/_INSURANCE)] + [S:PREVIOUS_TOTAL] PARS 37 PARE'  where PAY_ID= 107 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:ALLOW_ARREAR]'  where PAY_ID= 105 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:PF_CONT._10%] * [R:MMM] '  where PAY_ID= 109 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:PF_AREAR_10_%]'  where PAY_ID= 208 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:PF_CONT_20%] * [R:MMM]'  where PAY_ID= 209 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:PF_AREAR_10_%]'  where PAY_ID= 110 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' [R:PF_CONT_20%] * [R:MMM]'  where PAY_ID= 111 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:PF_AREAR_20_%]'  where PAY_ID= 210 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' [R:PF_AREAR_20_%]'  where PAY_ID= 112 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '15'  where PAY_ID= 265 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '15'  where PAY_ID= 266 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 270 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.0'  where PAY_ID= 271 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 272 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [M:ABSENT_DAYS] >=0) ? [M:ABSENT_DAYS] : [V:ABSENT_DAYS]'  where PAY_ID= 230 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[V:HOLIDAYS]'  where PAY_ID= 216 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[V:DAY_OFFS]'  where PAY_ID= 215 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[V:PRESENT_DAYS]'  where PAY_ID= 214 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[V:BASIC_SALARY]'  where PAY_ID= 253 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[V:TOTAL_DAYS_TO_PAY]'  where PAY_ID= 217 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'ROUND
+(
+(
+[V:BASIC_SALARY] - ( ( [V:BASIC_SALARY] / [V:MONTH_DAYS] ) * [R:MONTH_ABSENT] )
+)
+,2
+)'  where PAY_ID= 66 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '1'  where PAY_ID= 47 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[V:PRESENT_DAYS] + [V:DAY_OFFS] + [V:HOLIDAYS]'  where PAY_ID= 11 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[V:ABSENT_DAYS]'  where PAY_ID= 224 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '(
+
+ ( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+ (
+
+ ( [R:MONTH_ABSENT] > 0 )
+ ?
+ (
+
+ ( [R:MONTH_ABSENT] >= [R:LAST_JULY] ) ? 0 :
+
+ ( [R:BASIC]/31)*( [R:FIRST_JULY] - [R:MONTH_ABSENT] )
+
+ )
+ :
+ (([R:BASIC]/31)* [R:FIRST_JULY]) 
+ )
+ :0
+ )
+
+
+ +
+  ( ( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >-1  ) ? [R:BASIC] : 0 )
+ +
+ ( ( [S:MULTIPLICATION_FACTOR] == -1 ) ?
+ (
+
+  ( [R:MONTH_ABSENT] > 0 )
+  ?
+  (
+
+ ( [R:MONTH_ABSENT] <= [R:FIRST_JULY] ) ? 
+ ( [V:BASIC_SALARY] /31) * [R:LAST_JULY]
+ :
+( [V:BASIC_SALARY] /31)*( 31 - [R:MONTH_ABSENT] )
+
+ )
+
+ :
+   ( [V:BASIC_SALARY] /31) * [R:LAST_JULY]
+
+
+ )
+
+ : 0 )'  where PAY_ID= 228 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 49 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:BASIC] * [V:PRESENT_DAYS] ) / [V:MONTH_DAYS]
+'  where PAY_ID= 213 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:BASIC]'  where PAY_ID= 80 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:THIS_MONTH_BASIC] + [S:PREVIOUS_MONTH_AMOUNT] PARS 229 PARE'  where PAY_ID= 229 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [F:FLAT_VALUE_FOR_DEAR_ALLOW] || [F:FLAT_VALUE_FOR_DEAR_ALLOW]==0 )
+ ?
+( [F:FLAT_VALUE_FOR_DEAR_ALLOW] - ( ( [F:FLAT_VALUE_FOR_DEAR_ALLOW] / [V:MONTH_DAYS] ) * [R:MONTH_ABSENT] ))
+
+ :
+[F:G_FLAT_VALUE_FOR_DEAR_ALLOW.]
+
+'  where PAY_ID= 268 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [V:EMPLOYEE_SERVICE_ID] == 4 ) ? 
+0
+:
+[R:MONTHLY_DEAR_ALLOW]'  where PAY_ID= 254 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [F:LEFT_STAFF_(FV)] == 1 ) ? 1 : ( [S:MULTIPLICATION_FACTOR] + 1.5 )'  where PAY_ID= 4 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [V:IS_CONTRACT] ==1 ) ? [V:CAFE_MEAL_CURRENT] : [V:CAFE_MEAL_PREVIOUS]'  where PAY_ID= 5 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:SALARY_ERR(MC)]'  where PAY_ID= 2 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [V:EMPLOYEE_SERVICE_ID] == 4 ) ? 
+0
+:
+
+(
+
+ROUND
+(
+(
+[R:MONTHLY_DEAR_ALLOW] - ( ( [R:MONTHLY_DEAR_ALLOW] / [V:MONTH_DAYS] ) * [R:MONTH_ABSENT] )
+)
+,2
+)
+
+)
+
+'  where PAY_ID= 1 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:G_FLAT_VALUE_FOR_HOUSE_ALLOW.]'  where PAY_ID= 258 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( ( [S:MULTIPLICATION_FACTOR] + 1 ) < 1.3 ) ? 1 : ( [R:MMM] -1 )'  where PAY_ID= 6 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '12.5 - ( [S:MULTIPLICATION_FACTOR] - 1 ) '  where PAY_ID= 7 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [F:LEFT_STAFF_(FV)] == 1 ) ? 1 : ( ( [S:MULTIPLICATION_FACTOR] + 1 ) )'  where PAY_ID= 8 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [V:EMPLOYEE_SERVICE_ID] == 4 ) ? 
+0
+:
+
+(
+
+(
+
+ ( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+ (
+
+ ( [R:MONTH_ABSENT] > 0 )
+ ?
+ (
+
+ ( [R:MONTH_ABSENT] >= [R:LAST_JULY] ) ? 0 :
+
+ ( [R:DEAR_ALLOW] /31)*( [R:FIRST_JULY] - [R:MONTH_ABSENT] )
+
+ )
+ :
+ (([R:DEAR_ALLOW]/31)* [R:FIRST_JULY]) 
+ )
+ :0
+ )
+
+
+ +
+  ( ( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >-1  ) ? [R:DEAR_ALLOW] : 0 )
+ +
+ ( ( [S:MULTIPLICATION_FACTOR] == -1 ) ?
+ (
+
+  ( [R:MONTH_ABSENT] > 0 )
+  ?
+  (
+
+ ( [R:MONTH_ABSENT] <= [R:FIRST_JULY] ) ? 
+ ( [R:MONTHLY_DEAR_ALLOW] /31) * [R:LAST_JULY]
+ :
+( [R:MONTHLY_DEAR_ALLOW] /31)*( 31 - [R:MONTH_ABSENT] )
+
+ )
+
+ :
+   ( [R:MONTHLY_DEAR_ALLOW] /31) * [R:LAST_JULY]
+
+
+ )
+
+ : 0 )
+
+
+
+
+ )'  where PAY_ID= 231 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'round(
+
+(
+
+
+(
+( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+(
+
+[R:THIS_MONTH_BASIC] 
++
+(
+( [R:THIS_MONTH_BASIC] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+  ? ( [V:BASIC_SALARY] * [S:MULTIPLICATION_FACTOR] ) 
+  : 0
+)
++
+
+
+(
+([R:THIS_MONTH_BASIC] > 0 || ( [V:PRESENT_DAYS] >= 1 && [R:MONTH_ABSENT]!=31) )
+?
+(( [V:BASIC_SALARY] / 31)* [R:LAST_JULY])
+:
+0
+)
+
+
+
+
+
+)
+:
+0
+)
+
+
+
+
++
+(
+( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >=0  ) ?
+(
+[R:UNTIL_BASIC]
++
+( [R:THIS_MONTH_BASIC]  * [S:MULTIPLICATION_FACTOR] ) 
++
+( ( [R:THIS_MONTH_BASIC]  / 31) * [R:LAST_JULY] ) 
+)
+:
+0
+)
+
++
+
+(
+( [S:MULTIPLICATION_FACTOR] == -1  )
+?
+[R:UNTIL_BASIC]
+:
+0
+)
+
+)
+,
+2
+)
+'  where PAY_ID= 223 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ROUND
+(
+(
+[F:G_FLAT_VALUE_FOR_HOUSE_ALLOW.] - ( ([F:G_FLAT_VALUE_FOR_HOUSE_ALLOW.] / [V:MONTH_DAYS] ) * [R:MONTH_ABSENT] )
+)
+,2
+)'  where PAY_ID= 12 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '(
+
+ ( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+ (
+
+ ( [R:MONTH_ABSENT] > 0 )
+ ?
+ (
+
+ ( [R:MONTH_ABSENT] >= [R:LAST_JULY] ) ? 0 :
+
+ ( [R:HOUSE_ALLOW] /31)*( [R:FIRST_JULY] - [R:MONTH_ABSENT] )
+
+ )
+ :
+ (([R:HOUSE_ALLOW]/31)* [R:FIRST_JULY]) 
+ )
+ :0
+ )
+
+
+ +
+  ( ( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >-1  ) ? [R:HOUSE_ALLOW] : 0 )
+ +
+ ( ( [S:MULTIPLICATION_FACTOR] == -1 ) ?
+ (
+
+  ( [R:MONTH_ABSENT] > 0 )
+  ?
+  (
+
+ ( [R:MONTH_ABSENT] <= [R:FIRST_JULY] ) ? 
+ ( [F:G_FLAT_VALUE_FOR_HOUSE_ALLOW.] /31) * [R:LAST_JULY]
+ :
+( [F:G_FLAT_VALUE_FOR_HOUSE_ALLOW.] /31)*( 31 - [R:MONTH_ABSENT] )
+
+ )
+
+ :
+   ( [F:G_FLAT_VALUE_FOR_HOUSE_ALLOW.] /31) * [R:LAST_JULY]
+
+
+ )
+
+ : 0 )'  where PAY_ID= 233 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:THIS_MONTH_DEAR_ALLOW] + [S:PREVIOUS_MONTH_AMOUNT] PARS 232 PARE'  where PAY_ID= 232 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'ROUND
+(
+(
+[F:SPAC_ALL.(FV)] - ( ( [F:SPAC_ALL.(FV)] / [V:MONTH_DAYS] ) * [R:MONTH_ABSENT] )
+)
+,2
+)'  where PAY_ID= 13 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'number_format((float) ( [R:BASIC] * 0.1 ), 0, '.', '')
+
+'  where PAY_ID= 9 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:SPAC_ALL.(FV)]'  where PAY_ID= 259 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'ROUND
+(
+(
+ [F:G_FLAT_VALUE_FOR_EDUC._ALLOW] - ( ( [F:G_FLAT_VALUE_FOR_EDUC._ALLOW] / [V:MONTH_DAYS] ) * [R:MONTH_ABSENT] )
+)
+,2
+)'  where PAY_ID= 14 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '(
+
+ ( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+ (
+
+ ( [R:MONTH_ABSENT] > 0 )
+ ?
+ (
+
+ ( [R:MONTH_ABSENT] >= [R:LAST_JULY] ) ? 0 :
+
+ ( [R:SPEC_ALL] /31)*( [R:FIRST_JULY] - [R:MONTH_ABSENT] )
+
+ )
+ :
+ (([R:SPEC_ALL]/31)* [R:FIRST_JULY]) 
+ )
+ :0
+ )
+
+
+ +
+  ( ( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >-1  ) ? [R:SPEC_ALL] : 0 )
+ +
+ ( ( [S:MULTIPLICATION_FACTOR] == -1 ) ?
+ (
+
+  ( [R:MONTH_ABSENT] > 0 )
+  ?
+  (
+
+ ( [R:MONTH_ABSENT] <= [R:FIRST_JULY] ) ? 
+ ( [F:SPAC_ALL.(FV)] /31) * [R:LAST_JULY]
+ :
+( [F:SPAC_ALL.(FV)] /31)*( 31 - [R:MONTH_ABSENT] )
+
+ )
+
+ :
+   ( [F:SPAC_ALL.(FV)] /31) * [R:LAST_JULY]
+
+
+ )
+
+ : 0 )'  where PAY_ID= 235 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:G_FLAT_VALUE_FOR_EDUC._ALLOW]'  where PAY_ID= 261 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:THIS_MONTH_HOUSE_ALLOW] + [S:PREVIOUS_MONTH_AMOUNT] PARS 234 PARE'  where PAY_ID= 234 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:THIS_MONTH_SPAC_ALLOW] + [S:PREVIOUS_MONTH_AMOUNT] PARS 236 PARE'  where PAY_ID= 236 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '(
+
+ ( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+ (
+
+ ( [R:MONTH_ABSENT] > 0 )
+ ?
+ (
+
+ ( [R:MONTH_ABSENT] >= [R:LAST_JULY] ) ? 0 :
+
+ ( [R:EDUC__ALLOW] /31)*( [R:FIRST_JULY] - [R:MONTH_ABSENT] )
+
+ )
+ :
+ (( [R:EDUC__ALLOW] /31)* [R:FIRST_JULY]) 
+ )
+ :0
+ )
+
+
+ +
+  ( ( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >-1  ) ? [R:EDUC__ALLOW] : 0 )
+ +
+ ( ( [S:MULTIPLICATION_FACTOR] == -1 ) ?
+ (
+
+  ( [R:MONTH_ABSENT] > 0 )
+  ?
+  (
+
+ ( [R:MONTH_ABSENT] <= [R:FIRST_JULY] ) ? 
+ ( [F:G_FLAT_VALUE_FOR_EDUC._ALLOW] /31) * [R:LAST_JULY]
+ :
+( [F:G_FLAT_VALUE_FOR_EDUC._ALLOW] /31)*( 31 - [R:MONTH_ABSENT] )
+
+ )
+
+ :
+   ( [F:G_FLAT_VALUE_FOR_EDUC._ALLOW] /31) * [R:LAST_JULY]
+
+
+ )
+
+ : 0 )'  where PAY_ID= 239 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '( [F:FLAT_VALUE_FOR_FOOD_ALL] || [F:FLAT_VALUE_FOR_FOOD_ALL]==0 )
+ ?
+	[F:FLAT_VALUE_FOR_FOOD_ALL]
+ :
+
+ [F:G_FLAT_VALUE_FOR_FOOD_ALL.]
+
+
+'  where PAY_ID= 255 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:THIS_MONTH_EDUCATION_ALLOWANCE] + [S:PREVIOUS_MONTH_AMOUNT] PARS 240 PARE'  where PAY_ID= 240 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' 
+ ( [V:EMPLOYEE_SERVICE_ID] ==4) ? 0 : (
+ ROUND
+(
+(
+[R:FOOD_ALLOWANCE] - ( ( [R:FOOD_ALLOWANCE] / [V:MONTH_DAYS] ) * [R:MONTH_ABSENT] )
+)
+,2
+) )'  where PAY_ID= 15 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:CLOTH_/_TRANS_ALLOW._(FV)]'  where PAY_ID= 262 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '(
+
+ ( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+ (
+
+ ( [R:MONTH_ABSENT] > 0 )
+ ?
+ (
+
+ ( [R:MONTH_ABSENT] >= [R:LAST_JULY] ) ? 0 :
+
+ ( [R:FOOD_ALL] /31)*( [R:FIRST_JULY] - [R:MONTH_ABSENT] )
+
+ )
+ :
+ (( [R:FOOD_ALL] /31)* [R:FIRST_JULY]) 
+ )
+ :0
+ )
+
+
+ +
+  ( ( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >-1  ) ? [R:FOOD_ALL] : 0 )
+ +
+ ( ( [S:MULTIPLICATION_FACTOR] == -1 ) ?
+ (
+
+  ( [R:MONTH_ABSENT] > 0 )
+  ?
+  (
+
+ ( [R:MONTH_ABSENT] <= [R:FIRST_JULY] ) ? 
+ ( [R:FOOD_ALLOWANCE] /31) * [R:LAST_JULY]
+ :
+( [R:FOOD_ALLOWANCE] /31)*( 31 - [R:MONTH_ABSENT] )
+
+ )
+
+ :
+   ( [R:FOOD_ALLOWANCE] /31) * [R:LAST_JULY]
+
+
+ )
+
+ : 0 )'  where PAY_ID= 241 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:ALLO_ERR(MC)]'  where PAY_ID= 18 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'ROUND
+(
+(
+[F:CLOTH_/_TRANS_ALLOW._(FV)]  - ( ( [F:CLOTH_/_TRANS_ALLOW._(FV)]  / [V:MONTH_DAYS] ) * [R:MONTH_ABSENT] )
+)
+,2
+)'  where PAY_ID= 16 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:NIGHT_ALL(MC)]'  where PAY_ID= 17 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '(
+
+ ( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+ (
+
+ ( [R:MONTH_ABSENT] > 0 )
+ ?
+ (
+
+ ( [R:MONTH_ABSENT] >= [R:LAST_JULY]) ? 0 :
+
+ ( [R:CLOTH_/_TRANS_ALL.]/31)*( 15 - [R:MONTH_ABSENT] )
+
+ )
+ :
+ (( [R:CLOTH_/_TRANS_ALL.] /31)* [R:FIRST_JULY]) 
+ )
+ :0
+ )
+
+
+ +
+  ( ( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >-1  ) ? [R:CLOTH_/_TRANS_ALL.] : 0 )
+ +
+ ( ( [S:MULTIPLICATION_FACTOR] == -1 ) ?
+ (
+
+  ( [R:MONTH_ABSENT] > 0 )
+  ?
+  (
+
+ ( [R:MONTH_ABSENT] <= [R:FIRST_JULY] ) ? 
+ ( [F:CLOTH_/_TRANS_ALLOW._(FV)] /31) * [R:LAST_JULY]
+ :
+( [F:CLOTH_/_TRANS_ALLOW._(FV)] /31)*( 31 - [R:MONTH_ABSENT] )
+
+ )
+
+ :
+   ( [F:CLOTH_/_TRANS_ALLOW._(FV)] /31) * [R:LAST_JULY]
+
+
+ )
+
+ : 0 )'  where PAY_ID= 243 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '  ( [S:MULTIPLICATION_FACTOR]==11 ) ? 0 : ( [R:ALLOW_ARREAR] + ( [S:PREVIOUS_TOTAL]  PARS 18 PARE) )'  where PAY_ID= 267 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 19 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '  0.00'  where PAY_ID= 256 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:THIS_MONTH_FOOD_ALLOW] + [S:PREVIOUS_MONTH_AMOUNT] PARS 242 PARE'  where PAY_ID= 242 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:BASIC] + [R:DEAR_ALLOW] + [R:HOUSE_ALLOW] + [R:SPEC_ALL] + [R:EDUC__ALLOW]
++ [R:FOOD_ALL] + [R:CLOTH_/_TRANS_ALL.]'  where PAY_ID= 78 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:UNPAID_LEAVE]'  where PAY_ID= 219 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '  
+  round(
+
+
+
+  [R:PF_CONT.._10%] *2
+
+
+
+  )
+'  where PAY_ID= 257 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '(
+
+ ( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+ (
+
+ ( [R:MONTH_ABSENT] > 0 )
+ ?
+ (
+
+ ( [R:MONTH_ABSENT] >=16 ) ? 0 :
+
+ ( [R:PF_CONT._10%] /31)*( 15 - [R:MONTH_ABSENT] )
+
+ )
+ :
+ (([R:PF_CONT._10%]/31)*15) 
+ )
+ :0
+ )
+
+
+ +
+  ( ( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >-1  ) ? [R:PF_CONT._10%] : 0 )
+ +
+ ( ( [S:MULTIPLICATION_FACTOR] == -1 ) ?
+ (
+
+  ( [R:MONTH_ABSENT] > 0 )
+  ?
+  (
+
+ ( [R:MONTH_ABSENT] <=15 ) ? 
+ ( [V:BASIC_SALARY] /31) * 16
+ :
+( [V:BASIC_SALARY] /31)*( 31 - [R:MONTH_ABSENT] )
+
+ )
+
+ :
+   ( [V:BASIC_SALARY] /31) * 16
+
+
+ )
+
+ : 0 )'  where PAY_ID= 247 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:THIS_MONTH_CLOTH/TRANS_ALL] + [S:PREVIOUS_MONTH_AMOUNT] PARS 244 PARE'  where PAY_ID= 244 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' (
+ [V:EMPLOYEE_SERVICE_ID] == 2 ||  [V:EMPLOYEE_SERVICE_ID] == 3 || [V:EMPLOYEE_SERVICE_ID] == 4
+ )
+ ?
+
+(
+[F:PF_REMOVE] ==1 || [F:PF_REMOVE] ==2
+) ? 0 : [R:PF_CONT._10%] * 2
+
+:
+
+[R:PF_CONT._10%] * 2
+ '  where PAY_ID= 21 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 20 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:THIS_MONTH_PF_CONT._10%] + [S:PREVIOUS_MONTH_AMOUNT] PARS 248 PARE'  where PAY_ID= 248 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:PF_AREAR_10_%] *2'  where PAY_ID= 22 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '
+number_format((float) ( ( [M:SERVICE_CHARGE_(MC)] > 0 ) ? 0 : [F:G_FLAT_VALUE_FOR_S/CHARGES] ), 2, '.', '')'  where PAY_ID= 23 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [V:IS_PERMANENT] == 1 ) ? ( [R:BASIC_YEARLY] * 0.1 ) : 0'  where PAY_ID= 249 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:OVER_TIME_(MC)]'  where PAY_ID= 24 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' [R:PF_CONT._10%_YEARLY] * 2'  where PAY_ID= 250 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:LTC_(MC)]'  where PAY_ID= 25 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:LONG_S__ALL.(MC)]'  where PAY_ID= 26 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:UP_-_SELLING_(MC)]'  where PAY_ID= 27 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:MOBILE_ALLOW(MC)]'  where PAY_ID= 28 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:MOURNING_EXPENSES(MC)]'  where PAY_ID= 29 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:FAMILY_PLANNING_(MC)]'  where PAY_ID= 30 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 260 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' 
+ ROUND
+(
+(
+[F:POS_ALLOW(FV)] - ( ( [F:POS_ALLOW(FV)] / [V:MONTH_DAYS] ) * [R:MONTH_ABSENT] )
+)
+,2
+)'  where PAY_ID= 31 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '(
+
+ ( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+ (
+
+ ( [R:MONTH_ABSENT] > 0 )
+ ?
+ (
+
+ ( [R:MONTH_ABSENT] >= [R:LAST_JULY] ) ? 0 :
+
+ ( [R:POS_ALLOW] /31)*( [R:FIRST_JULY] - [R:MONTH_ABSENT] )
+
+ )
+ :
+ (( [R:POS_ALLOW] /31)* [R:FIRST_JULY]) 
+ )
+ :0
+ )
+
+
+ +
+  ( ( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >-1  ) ?  [R:POS_ALLOW] : 0 )
+ +
+ ( ( [S:MULTIPLICATION_FACTOR] == -1 ) ?
+ (
+
+  ( [R:MONTH_ABSENT] > 0 )
+  ?
+  (
+
+ ( [R:MONTH_ABSENT] <= [R:FIRST_JULY] ) ? 
+ ( [F:POS_ALLOW(FV)]  /31) * [R:LAST_JULY]
+ :
+( [F:POS_ALLOW(FV)]  /31)*( 31 - [R:MONTH_ABSENT] )
+
+ )
+
+ :
+   ( [F:POS_ALLOW(FV)]  /31) * [R:LAST_JULY]
+
+
+ )
+
+ : 0 )'  where PAY_ID= 237 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 263 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ROUND
+(
+(
+[F:MOBILE_ALLOWANCE_(FV)] - ( ( [F:MOBILE_ALLOWANCE_(FV)] / [V:MONTH_DAYS] ) * [R:MONTH_ABSENT] )
+)
+,2
+)'  where PAY_ID= 32 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:THIS_MONTH_POS_ALLOWANCE] + [S:PREVIOUS_MONTH_AMOUNT] PARS 238 PARE'  where PAY_ID= 238 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '(
+
+ ( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+ (
+
+ ( [R:MONTH_ABSENT] > 0 )
+ ?
+ (
+
+ ( [R:MONTH_ABSENT] >= [R:LAST_JULY] ) ? 0 :
+
+ ( [R:MOBILE] /31)*( [R:FIRST_JULY] - [R:MONTH_ABSENT] )
+
+ )
+ :
+ ((  [R:MOBILE] /31)* [R:FIRST_JULY]) 
+ )
+ :0
+ )
+
+
+ +
+  ( ( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >-1  ) ?[R:MOBILE] : 0 )
+ +
+ ( ( [S:MULTIPLICATION_FACTOR] == -1 ) ?
+ (
+
+  ( [R:MONTH_ABSENT] > 0 )
+  ?
+  (
+
+ ( [R:MONTH_ABSENT] <= [R:FIRST_JULY] ) ? 
+ ( [F:MOBILE_ALLOWANCE_(FV)] /31) * [R:LAST_JULY]
+ :
+( [F:MOBILE_ALLOWANCE_(FV)] /31)*( 31 - [R:MONTH_ABSENT] )
+
+ )
+
+ :
+   ( [F:MOBILE_ALLOWANCE_(FV)] /31) * [R:LAST_JULY]
+
+
+ )
+
+ : 0 )'  where PAY_ID= 245 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:G_FLAT_VALUE_FOR_DASHAIN]'  where PAY_ID= 33 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' 0.00'  where PAY_ID= 34 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:THIS_MONTH_MOBILE] + [S:PREVIOUS_MONTH_AMOUNT] PARS 246 PARE'  where PAY_ID= 246 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:G_FLAT_VALUE_FOR_BONUS]'  where PAY_ID= 35 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:SICK_ALLOW_(MC)]'  where PAY_ID= 36 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:VRS_AMOUNT_(FV)] + [F:PENSION_FUND(VRS)]'  where PAY_ID= 37 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:G_FLAT_VALUE_FOR_INCENTIVE]'  where PAY_ID= 38 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:1_ANNUAL_LEAVE_(FV)] + [F:2_SICK_LEAVE_(FV)]'  where PAY_ID= 39 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:GRATUITY_(FV)]'  where PAY_ID= 40 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 41 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:G_FLAT_VALUE_FOR_EDR_TIPS]'  where PAY_ID= 42 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:IDENTY_CARD_ERR(MC)]'  where PAY_ID= 43 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:NAME_TAG_LO(MC)]'  where PAY_ID= 44 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:KEY_LOST(MC)]'  where PAY_ID= 45 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 46 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 48 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 50 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 51 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 52 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 53 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 54 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 55 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 56 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 57 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 58 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:HIRE_PURCHASE_LOAN_(FV)]'  where PAY_ID= 59 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:ADVANCE]'  where PAY_ID= 60 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 61 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 62 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:MMM] < 1.3 ) ? ( [R:BASIC] * [R:MMM] ) : ( [R:BASIC] + ( [R:BASIC_PER_MONTH] * [R:MMR-1] ) ) '  where PAY_ID= 79 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 63 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[M:ADVANCE_(MC)]'  where PAY_ID= 64 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:BASIC1] + [R:CALC_BASIC_OLD]'  where PAY_ID= 81 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '(( ( 12-[S:MULTIPLICATION_FACTOR]) <=1 )? 0: 0)
++
+(( ( 12-[S:MULTIPLICATION_FACTOR]) <2 )? 0 : 0)
++
+(( ( 12-[S:MULTIPLICATION_FACTOR]) <=3 )? 0: 0)
++
+(( ( 12-[S:MULTIPLICATION_FACTOR]) <=4 )? 0: 0)
++
+(( ( 12-[S:MULTIPLICATION_FACTOR]) <=5 )? 0: 0)
++
+(( ( 12-[S:MULTIPLICATION_FACTOR]) <=6 )? 13221.02 : 0)
++
+(( ( 12-[S:MULTIPLICATION_FACTOR]) <=7 )? 11708.37: 0)
++
+(( ( 12-[S:MULTIPLICATION_FACTOR]) <=8 )? 18947.32: 0)
++
+(( ( 12-[S:MULTIPLICATION_FACTOR]) <=9 )? 17115.66: 0)
++
+(( ( 12-[S:MULTIPLICATION_FACTOR]) <=10 )? 14000: 0)
++
+(( ( 12-[S:MULTIPLICATION_FACTOR]) <=11 )? 14000: 0)
++
+(( ( 12-[S:MULTIPLICATION_FACTOR]) <=12 )? 14000: 0)
+
+'  where PAY_ID= 84 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [F:INSURANCE_(FV)] == 20000 ) ? 20000 : [F:INSURANCE_(FV)]'  where PAY_ID= 119 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:DASHAIN_(FV)]'  where PAY_ID= 113 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:BONUS_(FV)]'  where PAY_ID= 114 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:INCENTIVE_(FV)]'  where PAY_ID= 115 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:BASIC_YEARLY]+ [R:BASIC_SALARY_ERR] + [R:DEAR_ALL] + [R:HOUSE_ALL] + [R:SPAC_ALL]+ [R:POS_ALLOWANCE]+
+[R:FOOD_ALLOW] + [R:CLOTH_/_TRANS_ALL] + [R:ALLOW_ARREAR] + [R:S/CHARGE_FOR_TAX] + [R:OVER_TIME] +
+[R:LTCOMPENSATION] + [R:UP-SELLING] + [R:SICK_ALLOW]+ [R:LSA] + [R:MOBILE_ALLOW_ERREAR] +
+[R:MOURNING_EXPENSES] + [R:FAMILY_PLANNING] + [R:NIGHT_ALLOWANCE] + [R:MOBILE_R] +
+[R:DASHAIN_ALLOW]+ [R:STAFF_BONUS]+ [R:PF_CONT._10%_YEARLY]+ [R:PF_10_%_ERR] + [R:INCENTIVE]+
+[R:GROSS_UP_TAX] + [R:FESTIVAL_BONUS]
+'  where PAY_ID= 116 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TOTAL_INCOME]'  where PAY_ID= 117 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TOTAL_INCOME] / 3'  where PAY_ID= 118 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:G_FLAT_VALUE_FOR_DONATION] + [S:PREVIOUS_TOTAL] PARS 120 PARE'  where PAY_ID= 120 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:MMM] == 1.3 ) ? ( [R:CI_FUND] * [R:MMM] ) : ( [R:CI_FUND] + ( [F:CI_FUND_(FV)] * [R:MMR-1] ) )'  where PAY_ID= 121 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:RET._FUND(FV)]'  where PAY_ID= 122 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:CITIZEN_INVESTMENT_FUND1]'  where PAY_ID= 211 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[V:IS_MARRIED] ? 450000 : 400000'  where PAY_ID= 130 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'round(
+
+(
+
+
+(
+( [S:MULTIPLICATION_FACTOR] == 11 ) ?
+(
+
+[R:CI_FUND_TAX]
++
+(
+ [R:CI_FUND]  * [S:MULTIPLICATION_FACTOR] 
+)
++
+
+
+(
+ ( ([R:CI_FUND]/31)  * 16 )
+)
+
+
+
+
+
+)
+:
+0
+)
+
+
+
+
++
+(
+( [S:MULTIPLICATION_FACTOR] < 11 && [S:MULTIPLICATION_FACTOR] >=0  ) ?
+(
+[R:UNTIL_CI_FUND]
++
+( [R:CI_FUND]  * [S:MULTIPLICATION_FACTOR] ) 
++
+( ( [R:CI_FUND]  / 31)*16) 
+)
+:
+0
+)
+
++
+
+(
+( [S:MULTIPLICATION_FACTOR] == -1  )
+?
+[R:UNTIL_CI_FUND]
+:
+0
+)
+
+)
+,
+2
+)
+'  where PAY_ID= 123 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:PF_CONT._20%_YEARLY] + [R:PF_20_%_ERR] + [R:CITIZEN_INVESTMENT_FUND]'  where PAY_ID= 124 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'min ( [ [R:PF_&_CIT], [R:ASS_INCOME],300000 ])
+
+'  where PAY_ID= 125 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '300000'  where PAY_ID= 126 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:BONUS_TAX_(FV)]'  where PAY_ID= 128 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:INCENTIVE_TAX_(FV)]'  where PAY_ID= 129 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:ELIGIBLE_] + [R:EXEMPTION_LIMIT] + [R:INSURANCE_AMOUNT]'  where PAY_ID= 131 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TOTAL_INCOME] - [R:TOTAL_EXPECTATION1]'  where PAY_ID= 133 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TOTAL_INCOME] - ( [R:ELIGIBLE_] + [R:INSURANCE_AMOUNT] )'  where PAY_ID= 134 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:INCOME_FOR_1%_A] < [R:EXEMPTION_LIMIT] ) ? [R:INCOME_FOR_1%_A] : [R:EXEMPTION_LIMIT]'  where PAY_ID= 135 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '2000000 - [R:EXEMPTION_LIMIT] '  where PAY_ID= 136 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:TAXABLE_INCOME1] < 1) ? 0 : [R:TAXABLE_INCOME1]'  where PAY_ID= 137 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TAXABLE_INCOME2]'  where PAY_ID= 138 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:TAXABLE_INCOME3] > 300000 ) ? 200000 : ( [R:TAXABLE_INCOME3] - 100000 )'  where PAY_ID= 142 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:TAXABLE_INCOME3] > 0 ) ? ( [R:TAXABLE_INCOME3] + [R:EXEMPTION_LIMIT] ) : [R:INCOME_FOR_1%_B]'  where PAY_ID= 141 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:GRATUITY_(UP_TO_2002)APRIL_(FV)]'  where PAY_ID= 162 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:TAXABLE_INCOME3] > [R:30_CHECK_VALUE] ) ? ( [R:TAXABLE_INCOME3] - 2000000 + [R:EXEMPTION_LIMIT] ) : 0.00'  where PAY_ID= 140 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:TAXABLE_INCOME3] > [R:30_CHECK_VALUE] ) ? ( 1700000- [R:EXEMPTION_LIMIT] ) : ( [R:TAXABLE_INCOME3] - 300000 )'  where PAY_ID= 139 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:TAXABLE_INCOME3] < 100000 ) ? [R:TAXABLE_INCOME3] : 100000'  where PAY_ID= 143 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TAXABLE_INCOME4] + [R:GRATUITY_EXAMPTED]'  where PAY_ID= 144 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:TAXABLE_BASE_FOR_30] > 0 ) ? [R:TAXABLE_BASE_FOR_30] : 0.00'  where PAY_ID= 145 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:TAXABLE_BASE_FOR_20] > 0.00 ) ? [R:TAXABLE_BASE_FOR_20] : 0.00'  where PAY_ID= 146 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 175 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:TAXABLE_BASE_FOR_36] > 0 ) ? [R:TAXABLE_BASE_FOR_36] : 0.00'  where PAY_ID= 147 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:INCOME_FOR_1%_B] * 0.01'  where PAY_ID= 148 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:TAXABLE_INCOME3] < 100000 ) ? ( [R:TAXABLE_INCOME3] * 0.1) : 10000'  where PAY_ID= 149 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:20_%_TAXABLE_AMT] * 0.20'  where PAY_ID= 151 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:30_%_TAXABLE_AMT] * 0.3'  where PAY_ID= 150 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:36_%__TAXABLE_AMT] * 0.36'  where PAY_ID= 152 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TAX_1_%_C] + [R:10_%_TAXAMOUNT] + [R:20_%_TAXAMOUNT] + [R:30_%_TAXAMOUNT] + [R:36_%_TAXAMOUNT]'  where PAY_ID= 153 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:1_ANNUAL_LEAVE_(FV)]'  where PAY_ID= 154 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:2_SICK_LEAVE_(FV)]'  where PAY_ID= 155 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:SICK_LEAVE] + [R:ANNUAL_LEAVE]'  where PAY_ID= 156 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:3_LEAVE_EXAMPTED(FV)]'  where PAY_ID= 157 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TOTAL_LEAVE] + [R:GROSS_UP_TAX] - [R:LEAVE_EXAMPTED]'  where PAY_ID= 158 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TAXABLE_LEAVE] * 0.15'  where PAY_ID= 160 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:MISC-(VRS/INS)] * 0.15'  where PAY_ID= 159 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:GRATUITY_(FV)]'  where PAY_ID= 161 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:GRATUITY] - [R:GRATUITY_EXAMPTED]'  where PAY_ID= 163 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:ADJUSTMENT_TAX_(FV)]'  where PAY_ID= 164 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:GTY_TAXABLE] * 0.15'  where PAY_ID= 165 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TOTAL_EXPECTATION1] + [R:GTY_TAX]'  where PAY_ID= 132 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TOTAL_INCOME_TAX_LIABILITY]'  where PAY_ID= 166 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [V:IS_MALE] ) ? 0.00 : ( [R:TOTAL_INCOME_TAX_LIABILITY] * 0.1 )'  where PAY_ID= 167 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'min ( [R:ASS_INCOME] , [R:MAXIMUM] )'  where PAY_ID= 169 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:CONTRIBUTION_CIT1] < [R:PF_&_CIT] ) ? ( [R:CONTRIBUTION_CIT1] - [R:PF_&_CIT] ) : ( [R:CONTRIBUTION_CIT1] - [R:PF_&_CIT] )'  where PAY_ID= 170 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:EXEMPTION_LIMIT] == 400000 ) ? 0.00 : [R:IF_FEMALE_10%]'  where PAY_ID= 168 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '([V:EMPLOYEE_SERVICE_ID]==3|| [V:EMPLOYEE_SERVICE_ID]==4 ) ? 0.00 : 2000'  where PAY_ID= 176 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TAX_1_%_C] /12'  where PAY_ID= 181 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '763.25'  where PAY_ID= 212 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[S:PREVIOUS_TOTAL] PARS 177 PARE - [F:BONUS_TAX_(FV)]'  where PAY_ID= 127 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' [R:ADVANCE_TAX] + [R:BONUS_TAX] + [R:IF_FEMALE_10CONDITION_CHECK_] + [R:INCENTIVE_TAX]
++ [R:ADJUSTMENT_TAX] - [F:REFUND_TAX_(FV)]'  where PAY_ID= 171 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TOTAL_PRE_TAX1]'  where PAY_ID= 172 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TOTAL_TAX_LIB] - [R:TOTAL_PRE_TAX1]'  where PAY_ID= 173 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:10_%_TAXAMOUNT] > 12 ) ? ( ( [R:TAX_1_%_C] / 12 ) * [R:MMM_REMAINING] ) : ( [R:ADVANCE_TAX] + [R:BONUS_TAX] )'  where PAY_ID= 180 ;
+ update   HRIS_PAY_SETUP set FORMULA  = ' ( [R:MMM] == 1 ) ? [R:TAX_DUE_OR(REFUNDABLE_IF_-VE)] : ( [R:TAX_DUE_OR(REFUNDABLE_IF_-VE)] / 1 )'  where PAY_ID= 174 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'number_format((float) ( [R:LIABILITY_PER_MONTH] / ( [S:MULTIPLICATION_FACTOR]+1  ) ), 2, '.', '')'  where PAY_ID= 177 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:INCOME_TAX]'  where PAY_ID= 178 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TAX_DUE_OR(REFUNDABLE_IF_-VE)] - [R:CURRENT_MONTH_TDS] + [R:TAX_ON_LEAVE]
++ [R:TAX_ON_VRS] + [R:GTY_TAX]'  where PAY_ID= 179 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:GROSS_UP_TAX_ON_LEAVE(FV)]'  where PAY_ID= 184 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:TOTAL_TAX_LIB] + [R:TAX_ON_LEAVE] + [R:GTY_TAX] + [R:TAX_ON_VRS]'  where PAY_ID= 182 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[F:REFUND_TAX_(FV)]'  where PAY_ID= 183 ;
+ update   HRIS_PAY_SETUP set FORMULA  = 'number_format((float) (
+[R:DEAR_ALLOW] + [R:BASIC_SALARY_ERR] + [R:BASIC] + [R:HOUSE_ALLOW] + [R:SPEC_ALL] + [R:EDUC__ALLOW] + [R:FOOD_ALL]
++ [R:ALLOW_ARREAR] + [R:CLOTH_/_TRANS_ALL.] + [R:NIGHT_ALLOW] + [R:PF_CONT._10%] + [R:PF_AREAR_10_%] + [R:S/CHARGE]
++ [R:OVERTIME] + [R:LTC] + [R:LSA] + [R:UP-SELL_COMMISSION] + [R:MOBILE_ALLOW_ERREAR] + [R:MOURNING_EXP] + [R:FAMILY_PLAN]
++ [R:POS_ALLOW] + [R:MOBILE] + [R:DASHAIN] + [R:FESTIVAL_BONUS] + [R:BONUS] + [R:SICK_ALLOW] + [R:MISC-(VRS/_INSURANCE)]
++ [R:INCENTIVE] + [R:TOTAL_LEAVE] + [R:HOUSE_ALL] + [R:UP-SELLING] + [R:MOBILE_ALLOW_ARREAR] + [R:MOURNING_EXPENSES]
++ [R:FAMILY_PLANNING] + [R:EDUCATION_ALLOWANCE] + [R:GROSS_UP_TAX] + [R:DASHAIN_ALLOW] + [R:STAFF_BONUS] 
++ [R:LEAVE_EXAMPTED] + [R:GRATUITY]
+), 2, '.', '')
+'  where PAY_ID= 220 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:GRATUITY] +
+
+
+[R:MISC-(VRS/INS)] +
+[R:EDUC__ALLOW] +
+[R:LSA]+
+
+[R:MOURNING_EXP] +
+[R:MOBILE_ALLOW_ARREAR] +
+[R:UP-SELLING] +
+[R:HOUSE_ALLOWANCE] +
+
+[R:TOTAL_LEAVE] +
+[R:INCENTIVE] +
+[R:MISC-(VRS/_INSURANCE)] +
+[R:SICK_ALLOW] +
+[R:BONUS] +
+[R:DASHAIN] +
+[R:FESTIVAL_BONUS] +
+[R:MOBILE_ALLOWANCE] +
+[R:POS_ALLOWANCE.] +
+[R:FAMILY_PLAN] +
+[R:MOBILE_ALLOW_ERREAR] +
+[R:UP-SELL_COMMISSION] +
+[R:LTC] +
+[R:S/CHARGE] +
+[R:OVERTIME] +
+[R:PF_AREAR_10_%] +
+[R:PF_CONT._10%]+
+[R:NIGHT_ALLOW] +
+[R:ALLOW_ARREAR] +
+ [R:CLOTH_/_TRANS_ALLOWANCE] +
+
+
+[R:SPECIAL_ALLOWANCE] +
+[R:HOUSE_ALLOWANCE] +
+[R:BASIC] +
+[R:BASIC_SLRY_ARREAR] +
+[R:DEAR_ALLOWANCE]+
+[R:FOOD_ALLOWANCE]'  where PAY_ID= 227 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '
+number_format((float) ([R:PF_CONT_20%] + [R:UNPAID_LEAVE] + [R:PF_AREAR_20_%] + [R:UNION_FEE] + [R:EDR_TIPS] + [R:I._CARD_LOST] + [R:N/TAG_LOST]
++ [R:KEY_LOST] + [R:SPEC_LOAN] + [R:SPEC_LOAN_(INT)] + [R:M/C_LOAN] + [R:M/C_LOAN_(INT)] + [R:H/B_LOAN] + [R:H/B_LOAN_(INT)]
++ [R:EDUCATION_LOAN] + [R:EDUCATION_LOAN_(INT)] + [R:STAFF_LOAN] + [R:WELFARE_LOAN] + [R:WELFARE_LOAN(INT)_]
++ [R:BAJAJ_MOTERCYCLE(EBL)] + [R:NAVIN_DIST_PVT_LTD] + [R:PF_LOAN] + [R:SHL_LOAN] + [R:SHL_LOAN_(INT)] + [R:STAFF_ADVANCE] +
+[R:CITY_LEDGER] + [R:WELFARE_SUB] + [R:WSC_ARREAR_1%] + [R:CI_FUND] + [R:TIHAR_RAFFLE] + [R:CAFE_MEAL] + [R:ONE_DAY_B_SLY_CONT]
++ [R:UP_-S/COMM_(ADJMT)] + [R:SHORTFALL_TAX] + [R:STAR_OFFICE_INTERNATIONAL] + [R:MISC_DED] + [R:DONATION] + [R:GRATUITY_TAX]
++ [R:S_S_S_FUND] + [R:INCOME_TAX] ), 2, '.', '')
+'  where PAY_ID= 221 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '[R:INCOME_TAX] +
+[R:S_S_S_FUND] +
+[R:GRATUITY_TAX] +
+[R:DONATION] +
+
+[R:STAR_OFFICE_INTERNATIONAL] +
+[R:SHORTFALL_TAX] +
+[R:UP_-S/COMM_(ADJMT)] +
+[R:ONE_DAY_B_SLY_CONT] +
+[R:CAFE_MEAL] +
+[R:TIHAR_RAFFLE] +
+[R:WSC_ARREAR_1%] +
+[R:CI_FUND] +
+[R:WELFARE_SUB] +
+[R:CITY_LEDGER] +
+[R:STAFF_ADVANCE] +
+[R:SHL_LOAN_(INT)] +
+[R:SHL_LOAN] +
+[R:PF_LOAN] +
+[R:NAVIN_DIST_PVT_LTD] +
+[R:BAJAJ_MOTERCYCLE(EBL)] +
+[R:WELFARE_LOAN(INT)_] +
+[R:WELFARE_LOAN] +
+[R:STAFF_LOAN] +
+[R:EDUCATION_LOAN_(INT)] +
+[R:EDUCATION_LOAN] +
+[R:H/B_LOAN_(INT)] +
+[R:H/B_LOAN] +
+[R:M/C_LOAN_(INT)] +
+[R:M/C_LOAN] +
+[R:SPEC_LOAN_(INT)] +
+[R:SPEC_LOAN] +
+[R:KEY_LOST] +
+[R:N/TAG_LOST] +
+[R:I._CARD_LOST] +
+[R:EDR_TIPS] +
+[R:UNION_FEE] +
+[R:PF_AREAR_20_%] +
+[R:PF_CONT_20%] +
+[R:MISC_DED]'  where PAY_ID= 226 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '
+number_format((float) ( [R:TADDSALARY] - [R:TDEDSALARY] ), 2, '.', '')'  where PAY_ID= 222 ;
+ update   HRIS_PAY_SETUP set FORMULA  = '0.00'  where PAY_ID= 225 ;

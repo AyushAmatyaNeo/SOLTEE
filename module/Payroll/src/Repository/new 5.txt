@@ -1,0 +1,59 @@
+select * from hris_employees where status ='D' and employee_id in(375);
+
+select * from hris_employees where status='D' and lower(full_name) like '%kiran deula%';--378
+
+
+select * from hris_employees where status='D' and lower(full_name) like '%bilash mahara%';--416
+ 
+
+ 
+ select  full_name,employee_id, status from hris_employees where lower(full_name) like '%pragya%';--684
+ 
+ 
+ select  full_name,employee_id, status from hris_employees where lower(full_name) like '%kaji%';--387
+ 
+ 
+ 
+  select  full_name,employee_id, status from hris_employees where lower(full_name) like '%ganesh%';--414
+  
+  select  full_name,employee_id, status from hris_employees where lower(full_name) like '%saraswoti k%';--389,409
+  
+   select  full_name,employee_id, status from hris_employees where lower(full_name) like '%raj kumar%';--319
+   
+    select  full_name,employee_id, status from hris_employees where lower(full_name) like '%rupak%';--375
+    
+    
+    update hris_employees set status='E' where status ='D' and employee_id in(378,375,319,389,409,414,387,684,416);
+     commit;
+     
+    select full_name,status,employee_id from hris_employees where lower(full_name) like '%pravin%';--634
+    
+     select full_name,status,employee_id from hris_employees where lower(full_name) like '%surendra man%';--340
+  
+  
+  update hris_employees set status='D' where status ='E' and employee_id in(634,340);
+   commit;
+   
+    select full_name,status,employee_id from hris_employees where lower(full_name) like '%jayaram%';
+    
+    
+    
+    select Employee_id,Full_name from hris_employees where lower(full_name) like '%jayaram%';
+    
+     select * from hris_employees where lower(full_name) like '%jayaram%';
+     
+     select Full_name,Employee_id, status from hris_employees where lower(full_name) like '%pravin%';
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  
+  
+ 
